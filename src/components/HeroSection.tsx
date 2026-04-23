@@ -3,8 +3,6 @@ import { ArrowRight } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import SlideOneDashboard from "@/components/hero/SlideOneDashboard";
 
-const TAGS = ["AI-Driven Attack Simulation", "Autonomous Pen Testing", "Continuous Validation"];
-
 const HeroSection = () => {
   const contentRef = useScrollReveal({ threshold: 0.1 });
 
@@ -55,15 +53,6 @@ const HeroSection = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
-            </div>
-
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground pt-2">
-              {TAGS.map((tag, i) => (
-                <span key={tag}>
-                  {i > 0 && <span className="text-border hidden sm:inline mr-6">·</span>}
-                  {tag}
-                </span>
-              ))}
             </div>
           </div>
 
