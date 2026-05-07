@@ -1,32 +1,15 @@
 import { useParams, Link } from "react-router-dom";
-import { useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getBlogPost } from "@/data/blog-posts";
-import { CalendarDays, Clock, ArrowLeft, List } from "lucide-react";
+import { CalendarDays, Clock, ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-
-function extractHeadings(content: string) {
-  const headings: { level: number; text: string; id: string }[] = [];
-  const lines = content.split("\n");
-  for (const line of lines) {
-    const match = line.match(/^(#{2,3})\s+(.+)/);
-    if (match) {
-      const level = match[1].length;
-      const text = match[2].replace(/[*`]/g, "").trim();
-      const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-      headings.push({ level, text, id });
-    }
-  }
-  return headings;
-}
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = slug ? getBlogPost(slug) : undefined;
-  const headings = useMemo(() => (post ? extractHeadings(post.content) : []), [post]);
 
   if (!post) {
     return (
@@ -93,32 +76,6 @@ const BlogPost = () => {
                 className="w-full aspect-[16/7] object-cover"
               />
             </div>
-          )}
-
-          {/* Table of Contents */}
-          {headings.length > 2 && (
-            <nav className="mb-12 p-5 rounded-xl border border-border bg-card">
-              <div className="flex items-center gap-2 text-sm font-semibold text-foreground mb-3">
-                <List className="h-4 w-4 text-primary" />
-                In this article
-              </div>
-              <ul className="space-y-1.5">
-                {headings.map((h) => (
-                  <li key={h.id}>
-                    <a
-                      href={`#${h.id}`}
-                      className={`block text-sm transition-colors hover:text-primary ${
-                        h.level === 3
-                          ? "pl-4 text-muted-foreground/70"
-                          : "text-muted-foreground font-medium"
-                      }`}
-                    >
-                      {h.text}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
           )}
 
           <div className="blog-prose">
