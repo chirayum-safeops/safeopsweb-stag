@@ -169,6 +169,24 @@ const HowItWorks = () => {
             </p>
           </div>
 
+          {/* Key points */}
+          <div className="mb-16 p-6 rounded-xl border border-primary/20 bg-primary/[0.04]">
+            <ul className="space-y-2 text-sm md:text-base text-foreground">
+              <li className="pl-5 relative">
+                <span className="absolute left-0 top-[10px] w-2 h-2 rounded-full bg-primary" />
+                SafeOps runs the same five phases as a human pentester (recon, enumeration, exploitation, validation, reporting), continuously instead of on an engagement window.
+              </li>
+              <li className="pl-5 relative">
+                <span className="absolute left-0 top-[10px] w-2 h-2 rounded-full bg-primary" />
+                Every finding is validated before it ships. Scanner output and unconfirmed issues do not reach your team.
+              </li>
+              <li className="pl-5 relative">
+                <span className="absolute left-0 top-[10px] w-2 h-2 rounded-full bg-primary" />
+                Human security engineers focus on business logic flaws, multi-step exploit chains, and objective-driven testing the platform cannot reach.
+              </li>
+            </ul>
+          </div>
+
           {/* Five Phases */}
           <section className="mb-20">
             <h2 className="text-2xl md:text-3xl font-bold mb-3 text-foreground">
