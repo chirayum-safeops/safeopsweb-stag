@@ -3,6 +3,27 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowRight, Search, ListChecks, Bug, ShieldCheck, FileText, RefreshCw, Code, GitBranch, Brain } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
+const faqs = [
+  {
+    q: "Is automated pentesting safe for production environments?",
+    a: "Yes. SafeOps tests production environments using controlled, non-destructive techniques. Exploit attempts are bounded (no destructive payloads, no data deletion, throttled request rates) and the platform monitors target health during testing. For sensitive workloads, scope and aggressiveness are configurable.",
+  },
+  {
+    q: "How does SafeOps validate vulnerabilities found by AI agents?",
+    a: "Every finding goes through automated validation before reporting. The platform captures request/response evidence, screenshots of executed payloads, exfiltrated test data, and proof-of-access artifacts. Findings the platform cannot confirm are marked unconfirmed or dropped. Certified human security engineers review high-impact findings before they ship to your team.",
+  },
+  {
+    q: "What types of assets can be tested?",
+    a: "SafeOps tests web applications, APIs (REST, GraphQL, gRPC), cloud infrastructure across AWS, Azure, and GCP, Kubernetes and container environments, and Infrastructure as Code. Coverage scales with your environment, so newly deployed assets are discovered and tested without scope re-negotiation.",
+  },
+];
 
 const setMeta = (name: string, content: string, isProperty = false) => {
   const attr = isProperty ? "property" : "name";
@@ -130,6 +151,16 @@ const HowItWorks = () => {
       })),
     });
 
+    setJsonLd("ld-how-faq", {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    });
+
     setJsonLd("ld-how-breadcrumb", {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -140,7 +171,7 @@ const HowItWorks = () => {
     });
 
     return () => {
-      ["ld-howto", "ld-how-breadcrumb"].forEach((id) => {
+      ["ld-howto", "ld-how-faq", "ld-how-breadcrumb"].forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.remove();
       });
@@ -314,6 +345,25 @@ const HowItWorks = () => {
                 </div>
               ))}
             </div>
+          </section>
+
+          {/* FAQ */}
+          <section className="mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
+              Frequently Asked Questions
+            </h2>
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((f, i) => (
+                <AccordionItem key={i} value={`how-faq-${i}`}>
+                  <AccordionTrigger className="text-left text-base md:text-lg font-semibold">
+                    {f.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-base text-muted-foreground leading-relaxed">
+                    {f.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </section>
 
           {/* Related */}

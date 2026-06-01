@@ -9,6 +9,7 @@ import BlogPost from "./pages/BlogPost";
 import Learn from "./pages/Learn";
 import LearnPage from "./pages/LearnPage";
 import HowItWorks from "./pages/HowItWorks";
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import { usePageTracking } from "./hooks/usePageTracking";
@@ -25,6 +26,7 @@ const AppRoutes = () => {
       <Route path="/learn" element={<Learn />} />
       <Route path="/learn/:slug" element={<LearnPage />} />
       <Route path="/how-it-works" element={<HowItWorks />} />
+      <Route path="/about" element={<About />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
