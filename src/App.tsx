@@ -9,6 +9,7 @@ import BlogPost from "./pages/BlogPost";
 import Learn from "./pages/Learn";
 import LearnPage from "./pages/LearnPage";
 import NotFound from "./pages/NotFound";
+import ScrollToTop from "./components/ScrollToTop";
 import { usePageTracking } from "./hooks/usePageTracking";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter basename={import.meta.env.BASE_URL}>
+        <ScrollToTop />
         <AppRoutes />
       </BrowserRouter>
     </TooltipProvider>
