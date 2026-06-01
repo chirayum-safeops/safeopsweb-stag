@@ -298,38 +298,6 @@ const HowItWorks = () => {
             </div>
           </section>
 
-          {/* What we don't do */}
-          <section className="mb-20">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3 text-foreground">
-              What SafeOps Does Not Do
-            </h2>
-            <p className="text-muted-foreground mb-6 max-w-2xl">
-              Honest scope. These are not things SafeOps claims to cover.
-            </p>
-            <ul className="space-y-3 text-sm md:text-base text-muted-foreground">
-              <li className="pl-5 relative">
-                <span className="absolute left-0 top-[10px] w-2 h-2 rounded-full bg-muted-foreground/40" />
-                Replace human red teamers for objective-driven engagements against high-value scopes.
-              </li>
-              <li className="pl-5 relative">
-                <span className="absolute left-0 top-[10px] w-2 h-2 rounded-full bg-muted-foreground/40" />
-                Satisfy regulatory mandates that explicitly require periodic third-party human-led pentest reports (some PCI DSS contexts, certain government contracting requirements). Continuous testing runs alongside, not in place of, those.
-              </li>
-              <li className="pl-5 relative">
-                <span className="absolute left-0 top-[10px] w-2 h-2 rounded-full bg-muted-foreground/40" />
-                Replace internal security expertise. SafeOps feeds a security team. It does not become one.
-              </li>
-              <li className="pl-5 relative">
-                <span className="absolute left-0 top-[10px] w-2 h-2 rounded-full bg-muted-foreground/40" />
-                Threat modeling during design. SafeOps tests what is implemented. Threat modeling catches what is being designed. Both matter.
-              </li>
-              <li className="pl-5 relative">
-                <span className="absolute left-0 top-[10px] w-2 h-2 rounded-full bg-muted-foreground/40" />
-                Social engineering and phishing campaigns. Human territory.
-              </li>
-            </ul>
-          </section>
-
           {/* Related */}
           <section className="mb-12">
             <h2 className="text-xl md:text-2xl font-bold mb-5 text-foreground">
