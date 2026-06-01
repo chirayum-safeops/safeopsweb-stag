@@ -170,21 +170,6 @@ const LearnPage = () => {
             </span>
           </div>
 
-          {/* TL;DR */}
-          <div className="mb-10 p-6 rounded-xl border border-primary/20 bg-primary/[0.04]">
-            <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">
-              TL;DR
-            </div>
-            <ul className="space-y-2">
-              {page.tldr.map((point, i) => (
-                <li key={i} className="text-sm md:text-base text-foreground leading-relaxed pl-5 relative">
-                  <span className="absolute left-0 top-[10px] w-2 h-2 rounded-full bg-primary" />
-                  {point}
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Short answer */}
           <div className="mb-10">
             <h2 className="text-xl md:text-2xl font-semibold mb-3 text-foreground">
