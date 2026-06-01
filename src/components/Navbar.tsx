@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, Search, Lock, Target, Globe, Server, Code, FileCode, Shield, BookOpen, GraduationCap, Info } from "lucide-react";
+import { Menu, X, ChevronDown, Search, Lock, Target, Globe, Server, Code, FileCode, Shield, BookOpen, GraduationCap } from "lucide-react";
 
 import safeopsLogo from "@/assets/safeops-logo.svg";
 
@@ -10,12 +10,12 @@ const navLinks: { label: string; href: string; external?: boolean }[] = [
   { label: "Industries", href: "/#industries" },
   { label: "Results", href: "/#case-studies" },
   { label: "FAQ", href: "/#faq" },
+  { label: "About", href: "/about" },
 ];
 
 const resourcesItems = [
   { label: "Blog", href: "/blog", icon: BookOpen, desc: "Latest insights on offensive security and continuous validation" },
   { label: "Learn", href: "/learn", icon: GraduationCap, desc: "Guides to continuous penetration testing and pentesting automation" },
-  { label: "About", href: "/about", icon: Info, desc: "Company, mission, and security focus areas" },
 ];
 
 const platformItems = [
