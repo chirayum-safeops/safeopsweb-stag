@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>SafeOps</title>
+<script>
+  // SPA redirect for GitHub Pages.
+  // Converts /<base>/path/to/page → /<base>/?/path/to/page
+  // index.html reads that and history.replaceState back to the real route.
+  // Adjust segmentCount to the number of path segments your repo base uses.
+  // For username.github.io/safeops-infosec/ → segmentCount = 1
+  var segmentCount = 1;
+  var l = window.location;
+  l.replace(
+    l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+    l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/?/' +
+    l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
+    (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+    l.hash
+  );
+</script>
+</head>
+<body></body>
+</html>

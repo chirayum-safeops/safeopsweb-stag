@@ -32,10 +32,10 @@ const ServicesSection = () => {
       <div className="container mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
           <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">
-            Continuous <span className="text-gradient-primary">Ethical Hacking</span>
+            Continuous <span className="text-gradient-primary">Penetration Testing</span>, Automated
           </h2>
           <p className="text-muted-foreground text-base leading-relaxed max-w-2xl mx-auto">
-            SafeOps combines intelligent automation, AI-assisted agents, and expert human validation to continuously identify exploitable vulnerabilities before attackers do.
+            SafeOps combines automated pentesting, AI-driven offensive security agents, and certified human validation to continuously identify exploitable vulnerabilities across applications, APIs, and cloud infrastructure — before attackers do.
           </p>
         </div>
 
