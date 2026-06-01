@@ -45,7 +45,7 @@ const WhySafeOpsSection = () => {
             Why <span className="text-gradient-primary">SafeOps</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Offensive security automation — continuous penetration testing, autonomous red teaming, and certified human experts in one platform.
+            Offensive security automation. Continuous penetration testing, autonomous red teaming, and certified human experts in one platform.
           </p>
         </div>
 

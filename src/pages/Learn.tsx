@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 
 const Learn = () => {
   useEffect(() => {
-    document.title = "Learn | SafeOps — Continuous Penetration Testing Guides";
+    document.title = "Learn | SafeOps Continuous Penetration Testing Guides";
     const set = (name: string, content: string) => {
       let el = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
       if (!el) {
@@ -20,7 +20,7 @@ const Learn = () => {
     };
     set(
       "description",
-      "Guides to continuous penetration testing, automated pentesting, and offensive security automation — answers to the questions security leaders ask before adopting continuous validation."
+      "Guides to continuous penetration testing, automated pentesting, and offensive security automation. Answers to the questions security leaders ask before adopting continuous validation."
     );
   }, []);
 

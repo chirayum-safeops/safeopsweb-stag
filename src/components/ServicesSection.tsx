@@ -5,7 +5,7 @@ const services = [
   {
     icon: Shield,
     title: "Expanding Attack Surfaces",
-    desc: "Modern enterprises run hundreds of applications, APIs, cloud services, and third-party integrations — dramatically increasing the number of potential entry points for attackers.",
+    desc: "Modern enterprises run hundreds of applications, APIs, cloud services, and third-party integrations, dramatically increasing the number of potential entry points for attackers.",
   },
   {
     icon: Globe,
@@ -35,7 +35,7 @@ const ServicesSection = () => {
             Continuous <span className="text-gradient-primary">Penetration Testing</span>, Automated
           </h2>
           <p className="text-muted-foreground text-base leading-relaxed max-w-2xl mx-auto">
-            SafeOps combines automated pentesting, AI-driven offensive security agents, and certified human validation to continuously identify exploitable vulnerabilities across applications, APIs, and cloud infrastructure — before attackers do.
+            SafeOps combines automated pentesting, AI-driven offensive security agents, and certified human validation to continuously identify exploitable vulnerabilities across applications, APIs, and cloud infrastructure, before attackers do.
           </p>
         </div>
 
