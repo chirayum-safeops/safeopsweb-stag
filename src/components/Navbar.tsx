@@ -6,7 +6,7 @@ import { Menu, X, ChevronDown, Search, Lock, Target, Globe, Server, Code, FileCo
 import safeopsLogo from "@/assets/safeops-logo.svg";
 
 const navLinks: { label: string; href: string; external?: boolean }[] = [
-  { label: "How It Works", href: "/#process" },
+  { label: "How It Works", href: "/how-it-works" },
   { label: "Industries", href: "/#industries" },
   { label: "Results", href: "/#case-studies" },
   { label: "FAQ", href: "/#faq" },
