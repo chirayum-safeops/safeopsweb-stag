@@ -46,7 +46,7 @@ const HeroSection = () => {
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl">
-              SafeOps is an automated continuous penetration testing platform. AI-driven offensive security and autonomous red teaming that continuously simulate real-world attacks across your applications, APIs, and cloud infrastructure, so exploitable weaknesses surface before attackers find them.
+              SafeOps is an automated continuous penetration testing platform. Our AI-driven offensive security agents continuously simulate real-world attacks across applications, APIs, and cloud infrastructure to identify exploitable weaknesses before attackers do.
             </p>
 
             <div className="flex flex-wrap gap-4">
