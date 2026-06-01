@@ -30,34 +30,76 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "SafeOps",
-      "applicationCategory": "SecurityApplication",
-      "applicationSubCategory": "Automated Continuous Penetration Testing Platform",
-      "operatingSystem": "Cloud",
-      "description": "SafeOps is an automated continuous penetration testing platform. AI-powered offensive security automation and autonomous red teaming that continuously simulates real-world attacks across applications, APIs, and cloud infrastructure.",
-      "url": "https://safeops.io",
-      "publisher": {
-        "@type": "Organization",
-        "name": "SafeOps",
-        "url": "https://safeops.io",
-        "description": "Automated continuous penetration testing platform. Offensive security automation, autonomous red teaming, and continuous security validation.",
-        "knowsAbout": [
-          "Continuous Penetration Testing",
-          "Automated Pentesting",
-          "Offensive Security Automation",
-          "Autonomous Security Testing",
-          "Red Teaming Automation",
-          "Continuous Security Validation",
-          "SOC 2 Pentesting"
-        ]
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD",
-        "description": "Start free"
-      }
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://safeops.io/#organization",
+          "name": "SafeOps",
+          "url": "https://safeops.io",
+          "description": "Automated continuous penetration testing platform. Offensive security automation, autonomous red teaming, and continuous security validation.",
+          "knowsAbout": [
+            "Continuous Penetration Testing",
+            "Automated Pentesting",
+            "Offensive Security Automation",
+            "Autonomous Security Testing",
+            "Red Teaming Automation",
+            "Continuous Security Validation",
+            "SOC 2 Pentesting",
+            "Cloud Security",
+            "Application Security",
+            "API Security"
+          ],
+          "areaServed": "Worldwide"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://safeops.io/#website",
+          "url": "https://safeops.io",
+          "name": "SafeOps",
+          "publisher": { "@id": "https://safeops.io/#organization" },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://safeops.io/#software",
+          "name": "SafeOps",
+          "applicationCategory": "SecurityApplication",
+          "applicationSubCategory": "Automated Continuous Penetration Testing Platform",
+          "operatingSystem": "Cloud",
+          "description": "SafeOps is an automated continuous penetration testing platform. AI-driven offensive security agents continuously simulate real-world attacks across applications, APIs, and cloud infrastructure.",
+          "url": "https://safeops.io",
+          "publisher": { "@id": "https://safeops.io/#organization" },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Start free"
+          }
+        },
+        {
+          "@type": "Service",
+          "@id": "https://safeops.io/#service",
+          "name": "Continuous Penetration Testing",
+          "serviceType": "Penetration Testing",
+          "provider": { "@id": "https://safeops.io/#organization" },
+          "description": "Continuous, automated penetration testing of applications, APIs, and cloud infrastructure. AI-driven offensive security agents simulate real-world attacks and validate exploitable findings, replacing or supplementing annual pentests.",
+          "areaServed": "Worldwide",
+          "audience": {
+            "@type": "Audience",
+            "audienceType": "SaaS Companies, Cloud-Native Organizations, Security and Engineering Leaders"
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "SafeOps Offensive Security Services",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Continuous Web Application Pentesting" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Continuous API Pentesting" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cloud Infrastructure Pentesting" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Automated Red Teaming" } }
+            ]
+          }
+        }
+      ]
     }
     </script>
     <script>

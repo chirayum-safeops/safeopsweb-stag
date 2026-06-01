@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -7,9 +8,86 @@ import { getBlogPost } from "@/data/blog-posts";
 import { CalendarDays, Clock, ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
+const setMeta = (name: string, content: string, isProperty = false) => {
+  const attr = isProperty ? "property" : "name";
+  let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+};
+
+const setJsonLd = (id: string, json: object) => {
+  let el = document.getElementById(id) as HTMLScriptElement | null;
+  if (!el) {
+    el = document.createElement("script");
+    el.type = "application/ld+json";
+    el.id = id;
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify(json);
+};
+
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = slug ? getBlogPost(slug) : undefined;
+
+  useEffect(() => {
+    if (!post) return;
+    const url = `https://safeops.io/blog/${post.slug}`;
+    document.title = `${post.title} | SafeOps`;
+    setMeta("description", post.excerpt);
+    setMeta("og:title", post.title, true);
+    setMeta("og:description", post.excerpt, true);
+    setMeta("og:url", url, true);
+    setMeta("og:type", "article", true);
+    setMeta("twitter:title", post.title);
+    setMeta("twitter:description", post.excerpt);
+
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = url;
+
+    setJsonLd("ld-blog-article", {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: post.title,
+      description: post.excerpt,
+      datePublished: post.date,
+      dateModified: post.date,
+      author: { "@type": "Organization", name: post.author },
+      publisher: {
+        "@type": "Organization",
+        name: "SafeOps",
+        url: "https://safeops.io",
+      },
+      mainEntityOfPage: url,
+      keywords: post.tags.join(", "),
+    });
+
+    setJsonLd("ld-blog-breadcrumb", {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://safeops.io/" },
+        { "@type": "ListItem", position: 2, name: "Blog", item: "https://safeops.io/blog" },
+        { "@type": "ListItem", position: 3, name: post.title, item: url },
+      ],
+    });
+
+    return () => {
+      ["ld-blog-article", "ld-blog-breadcrumb"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.remove();
+      });
+    };
+  }, [post]);
 
   if (!post) {
     return (

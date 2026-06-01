@@ -90,8 +90,18 @@ const LearnPage = () => {
       });
     }
 
+    setJsonLd("ld-learn-breadcrumb", {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://safeops.io/" },
+        { "@type": "ListItem", position: 2, name: "Learn", item: "https://safeops.io/learn" },
+        { "@type": "ListItem", position: 3, name: page.title, item: url },
+      ],
+    });
+
     return () => {
-      ["ld-article", "ld-faq"].forEach((id) => {
+      ["ld-article", "ld-faq", "ld-learn-breadcrumb"].forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.remove();
       });

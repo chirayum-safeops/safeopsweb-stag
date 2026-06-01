@@ -1,14 +1,31 @@
+import { useEffect } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const faqs = [
+  {
+    q: "What is continuous penetration testing?",
+    a: "Continuous penetration testing is offensive security testing that runs continuously against your applications, APIs, and cloud infrastructure rather than on a fixed annual or quarterly schedule. Every code change, infrastructure update, and new asset gets tested as it appears, so exploitable weaknesses surface within hours instead of at the next assessment window.",
+  },
+  {
+    q: "How often should companies run penetration tests?",
+    a: "For cloud-native organizations deploying weekly or more often, continuous validation is the right model. Annual or quarterly pentests describe an environment that has already changed by the time the report ships. For regulated scopes that mandate periodic third-party reports (some PCI DSS contexts, certain government contracts), continuous testing typically runs alongside the required periodic test rather than replacing it.",
+  },
+  {
+    q: "What is automated pentesting?",
+    a: "Automated pentesting runs the same workflow as a human pentester (reconnaissance, enumeration, exploitation, validation, reporting) using software agents instead of a human team. It is not the same as a vulnerability scanner. A scanner flags theoretical issues by signature match. A pentest platform actively attempts to exploit findings and only reports the ones it could confirm.",
+  },
+  {
+    q: "How does continuous penetration testing help with SOC 2?",
+    a: "SOC 2 requires evidence of regular vulnerability management and security testing. Continuous penetration testing satisfies those requirements with always-current evidence reflecting the live environment, rather than a single annual report that ages out within weeks. Many auditors now actively prefer continuous validation models because the evidence is materially better.",
+  },
   {
     q: "How long does the test take?",
     a: "SafeOps starts delivering insights within minutes of connecting your stack, with real-time, continuous security validation thereafter.",
   },
   {
     q: "How do AI agents perform penetration testing?",
-    a: "SafeOps agents autonomously discover and exploit vulnerabilities, simulate real-world attacks, and adapt based on findings—validated by human experts for accuracy.",
+    a: "SafeOps agents autonomously discover and exploit vulnerabilities, simulate real-world attacks, and adapt based on findings. Results are validated by human experts for accuracy.",
   },
   {
     q: "How does it understand my application?",
@@ -28,11 +45,11 @@ const faqs = [
   },
   {
     q: "How is the scope defined?",
-    a: "SafeOps intelligently understands your application by discovering assets, endpoints, and workflows—automatically building relevant test cases.",
+    a: "SafeOps intelligently understands your application by discovering assets, endpoints, and workflows, then automatically builds relevant test cases.",
   },
   {
     q: "What is the difference between a vulnerability scan and a penetration test?",
-    a: "A vulnerability scan identifies known issues automatically. SafeOps goes further—actively exploiting vulnerabilities, chaining them, and assessing real-world impact.",
+    a: "A vulnerability scan identifies known issues automatically. SafeOps goes further by actively exploiting vulnerabilities, chaining them, and assessing real-world impact.",
   },
   {
     q: "What happens when a vulnerability is found during a software release?",
@@ -41,6 +58,30 @@ const faqs = [
 ];
 const FAQSection = () => {
   const sectionRef = useScrollReveal({ staggerChildren: true, staggerDelay: 60 });
+
+  useEffect(() => {
+    const id = "ld-homepage-faq";
+    let el = document.getElementById(id) as HTMLScriptElement | null;
+    if (!el) {
+      el = document.createElement("script");
+      el.type = "application/ld+json";
+      el.id = id;
+      document.head.appendChild(el);
+    }
+    el.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    });
+    return () => {
+      const node = document.getElementById(id);
+      if (node) node.remove();
+    };
+  }, []);
 
   return (
     <section id="faq" className="section-padding scroll-mt-24">
