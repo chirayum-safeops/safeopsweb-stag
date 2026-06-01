@@ -34,12 +34,19 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left: Content */}
           <div ref={contentRef} className="space-y-8 reveal">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="text-xs font-semibold text-primary uppercase tracking-wider">
+                Automated Continuous Penetration Testing Platform
+              </span>
+            </div>
+
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-foreground">
               Hackers Don't Wait, <span className="text-gradient-primary">Neither Should You.</span>
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl">
-              Offensive security powered by AI, backed by human experts. Continuously simulate real-world attacks across your stack, Validate threats before attackers do
+              SafeOps is an automated continuous penetration testing platform. AI-powered offensive security automation and autonomous red teaming that continuously simulates real-world attacks across your applications, APIs, and cloud infrastructure — so exploitable weaknesses surface before attackers find them.
             </p>
 
             <div className="flex flex-wrap gap-4">

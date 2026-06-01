@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import Learn from "./pages/Learn";
+import LearnPage from "./pages/LearnPage";
 import NotFound from "./pages/NotFound";
 import { usePageTracking } from "./hooks/usePageTracking";
 
@@ -18,6 +20,8 @@ const AppRoutes = () => {
       <Route path="/" element={<Index />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/blog/:slug" element={<BlogPost />} />
+      <Route path="/learn" element={<Learn />} />
+      <Route path="/learn/:slug" element={<LearnPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
@@ -28,7 +32,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <AppRoutes />
       </BrowserRouter>
     </TooltipProvider>

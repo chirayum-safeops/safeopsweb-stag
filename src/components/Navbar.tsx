@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, Search, Lock, Target, Globe, Server, Code, FileCode, Shield } from "lucide-react";
+import { Menu, X, ChevronDown, Search, Lock, Target, Globe, Server, Code, FileCode, Shield, BookOpen, GraduationCap } from "lucide-react";
 
 import safeopsLogo from "@/assets/safeops-logo.svg";
 
@@ -9,12 +9,16 @@ const navLinks: { label: string; href: string; external?: boolean }[] = [
   { label: "How It Works", href: "/#process" },
   { label: "Industries", href: "/#industries" },
   { label: "Results", href: "/#case-studies" },
-  { label: "Blog", href: "/blog" },
   { label: "FAQ", href: "/#faq" },
 ];
 
+const resourcesItems = [
+  { label: "Blog", href: "/blog", icon: BookOpen, desc: "Latest insights on offensive security and continuous validation" },
+  { label: "Learn", href: "/learn", icon: GraduationCap, desc: "Guides to continuous penetration testing and pentesting automation" },
+];
+
 const platformItems = [
-  { label: "Continuous Ethical Hacking", href: "/#services", icon: Target, desc: "AI-powered offensive security across your stack" },
+  { label: "Continuous Penetration Testing", href: "/#services", icon: Target, desc: "Automated, AI-driven offensive security across your stack" },
   { label: "Security Assessment Reports", href: "/#deliverables", icon: Shield, desc: "Detailed findings with actionable remediation" },
   
   { label: "Platform Dashboard", href: "/#platform-in-action", icon: Search, desc: "Real-time visibility into your security posture" },
@@ -177,6 +181,35 @@ const Navbar = () => {
               </a>
             )
           )}
+
+          {/* Resources Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => handleMouseEnter("resources")}
+            onMouseLeave={handleMouseLeave}
+          >
+            <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2">
+              Resources <ChevronDown className={`h-3.5 w-3.5 transition-transform ${openDropdown === "resources" ? "rotate-180" : ""}`} />
+            </button>
+            {openDropdown === "resources" && (
+              <div className="absolute top-full right-0 mt-2 w-80 bg-card p-2 shadow-lg border border-border rounded-lg animate-fade-in-up">
+                {resourcesItems.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className="flex items-start gap-3 px-3 py-2.5 rounded-md hover:bg-muted transition-colors group"
+                    onClick={() => setOpenDropdown(null)}
+                  >
+                    <item.icon className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                    <div>
+                      <div className="text-sm font-medium text-foreground">{item.label}</div>
+                      <div className="text-xs text-muted-foreground">{item.desc}</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="hidden lg:flex items-center gap-3">
@@ -261,6 +294,31 @@ const Navbar = () => {
               </a>
             )
           )}
+
+          {/* Mobile Resources */}
+          <div>
+            <button
+              onClick={() => setMobileExpanded(mobileExpanded === "resources" ? null : "resources")}
+              className="flex items-center justify-between w-full text-base font-medium text-foreground py-2"
+            >
+              Resources <ChevronDown className={`h-4 w-4 transition-transform ${mobileExpanded === "resources" ? "rotate-180" : ""}`} />
+            </button>
+            {mobileExpanded === "resources" && (
+              <div className="pl-4 space-y-2 pb-2">
+                {resourcesItems.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="block text-sm text-muted-foreground hover:text-foreground py-1"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
           <div className="pt-3 space-y-2">
             <Button asChild className="w-full gradient-copper font-semibold">
               <a href="/#contact" onClick={(e) => { handleHashLink(e, "/#contact"); setMobileOpen(false); }}>Sign Up Free</a>
