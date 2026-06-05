@@ -12,6 +12,22 @@ import {
 
 const faqs = [
   {
+    q: "How does SafeOps work?",
+    a: "SafeOps runs the same five phases as a human pentester (reconnaissance, enumeration, exploitation, validation, reporting), continuously instead of on an engagement window. AI-driven offensive security agents discover assets, fingerprint technology, attempt exploitation, and validate findings before reporting them. Certified human security engineers handle business logic abuse and multi-step exploit chains the platform cannot reach.",
+  },
+  {
+    q: "How are vulnerabilities prioritized?",
+    a: "SafeOps prioritizes by confirmed exploitability and reachable business impact, not raw CVSS score. A medium-severity IDOR in a customer-facing API outranks a CVSS 9.8 RCE on an isolated dev host that the platform could not actually reach. Severity is informed by what the platform was able to do during exploitation, the data or systems it could reach, and the chain of steps required.",
+  },
+  {
+    q: "How does SafeOps integrate into engineering workflows?",
+    a: "Findings appear in the tools your team already uses. SafeOps integrates with CI/CD (GitHub Actions, GitLab CI, CircleCI, Jenkins), ticketing (Jira, Linear, GitHub Issues, Asana), chat and alerts (Slack, Microsoft Teams, PagerDuty, Opsgenie), cloud platforms (AWS, Azure, GCP, Kubernetes), identity (Okta, Azure AD, Google Workspace, Cognito), and SIEM/SOAR (Splunk, Datadog, Sumo Logic, Elastic). Triage happens where engineering already works, not in a separate security dashboard.",
+  },
+  {
+    q: "What makes SafeOps different from vulnerability scanners?",
+    a: "A vulnerability scanner matches signatures against known CVEs and produces a long list of suspected issues. SafeOps actively attempts to exploit findings and only reports the ones it could confirm. The output is smaller, validated, and prioritized by reachable impact. Scanners tell you something might be vulnerable. SafeOps tells you what an attacker could actually do.",
+  },
+  {
     q: "Is automated pentesting safe for production environments?",
     a: "Yes. SafeOps tests production environments using controlled, non-destructive techniques. Exploit attempts are bounded (no destructive payloads, no data deletion, throttled request rates) and the platform monitors target health during testing. For sensitive workloads, scope and aggressiveness are configurable.",
   },
