@@ -22,6 +22,15 @@ const Learn = () => {
       "description",
       "Guides to continuous penetration testing, automated pentesting, and offensive security automation. Answers to the questions security leaders ask before adopting continuous validation."
     );
+
+    const url = "https://safeops.io/learn";
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = url;
   }, []);
 
   return (
