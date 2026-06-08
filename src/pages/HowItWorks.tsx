@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ArrowRight, Search, ListChecks, Bug, ShieldCheck, FileText, RefreshCw, Code, GitBranch, Brain } from "lucide-react";
 import {
   Accordion,
@@ -129,6 +130,16 @@ const integrations = [
 ];
 
 const HowItWorks = () => {
+  const heroRef = useScrollReveal({ threshold: 0.1 });
+  const keyPointsRef = useScrollReveal({ threshold: 0.1 });
+  const phasesRef = useScrollReveal({ staggerChildren: true, staggerDelay: 100 });
+  const triggerRef = useScrollReveal({ staggerChildren: true, staggerDelay: 100 });
+  const humansRef = useScrollReveal({ staggerChildren: true, staggerDelay: 100 });
+  const integrationsRef = useScrollReveal({ staggerChildren: true, staggerDelay: 80 });
+  const faqRef = useScrollReveal({ threshold: 0.1 });
+  const relatedRef = useScrollReveal({ staggerChildren: true, staggerDelay: 100 });
+  const ctaRef = useScrollReveal({ threshold: 0.1 });
+
   useEffect(() => {
     const url = "https://safeops.io/how-it-works";
     document.title = "How SafeOps Works | Continuous Penetration Testing Platform";
@@ -200,7 +211,7 @@ const HowItWorks = () => {
       <main className="container mx-auto px-4 pt-32 pb-20">
         <article className="max-w-4xl mx-auto">
           {/* Hero */}
-          <div className="text-center mb-16">
+          <div ref={heroRef} className="text-center mb-16 reveal">
             <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-6 text-foreground">
               Continuous Penetration Testing,{" "}
               <span className="text-gradient-primary">End to End</span>
@@ -211,7 +222,7 @@ const HowItWorks = () => {
           </div>
 
           {/* Key points */}
-          <div className="mb-16 p-6 rounded-xl border border-primary/20 bg-primary/[0.04]">
+          <div ref={keyPointsRef} className="mb-16 p-6 rounded-xl border border-primary/20 bg-primary/[0.04] reveal">
             <ul className="space-y-2 text-sm md:text-base text-foreground">
               <li className="pl-5 relative">
                 <span className="absolute left-0 top-[10px] w-2 h-2 rounded-full bg-primary" />
@@ -237,11 +248,11 @@ const HowItWorks = () => {
               Every pentest, manual or automated, runs roughly the same workflow. Here is what SafeOps handles at each step and where it stops to hand off.
             </p>
 
-            <div className="space-y-6">
+            <div ref={phasesRef} className="space-y-6 reveal">
               {phases.map((p) => (
                 <div
                   key={p.n}
-                  className="flex gap-5 p-6 rounded-xl border border-border bg-card hover:border-primary/30 transition-colors"
+                  className="flex gap-5 p-6 rounded-xl border border-border bg-card hover:border-primary/30 transition-colors reveal-child"
                 >
                   <div className="shrink-0">
                     <div className="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
@@ -274,8 +285,8 @@ const HowItWorks = () => {
             <p className="text-muted-foreground mb-8 max-w-2xl">
               Not everything runs every minute. The platform balances continuous coverage with cost and noise control.
             </p>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="p-6 rounded-xl border border-border bg-card">
+            <div ref={triggerRef} className="grid md:grid-cols-2 gap-6 reveal">
+              <div className="p-6 rounded-xl border border-border bg-card reveal-child">
                 <h3 className="text-base font-semibold text-foreground mb-3">
                   Continuous (always-on)
                 </h3>
@@ -287,7 +298,7 @@ const HowItWorks = () => {
                   <li>• DNS and subdomain monitoring</li>
                 </ul>
               </div>
-              <div className="p-6 rounded-xl border border-border bg-card">
+              <div className="p-6 rounded-xl border border-border bg-card reveal-child">
                 <h3 className="text-base font-semibold text-foreground mb-3">
                   Trigger-based (on change)
                 </h3>
@@ -310,11 +321,11 @@ const HowItWorks = () => {
             <p className="text-muted-foreground mb-8 max-w-2xl">
               Some work the platform will not do well, and probably will not for years. Human security engineers focus on what only humans do.
             </p>
-            <div className="grid md:grid-cols-3 gap-5">
+            <div ref={humansRef} className="grid md:grid-cols-3 gap-5 reveal">
               {humans.map((h) => (
                 <div
                   key={h.title}
-                  className="p-5 rounded-xl border border-border bg-card"
+                  className="p-5 rounded-xl border border-border bg-card reveal-child"
                 >
                   <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
                     <h.icon className="h-4 w-4" />
@@ -338,11 +349,11 @@ const HowItWorks = () => {
             <p className="text-muted-foreground mb-8 max-w-2xl">
               Findings appear in the tools your team already uses. No new dashboard to babysit.
             </p>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+            <div ref={integrationsRef} className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 reveal">
               {integrations.map((g) => (
                 <div
                   key={g.name}
-                  className="p-5 rounded-xl border border-border bg-card"
+                  className="p-5 rounded-xl border border-border bg-card reveal-child"
                 >
                   <h3 className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">
                     {g.name}
@@ -358,7 +369,7 @@ const HowItWorks = () => {
           </section>
 
           {/* FAQ */}
-          <section className="mb-16">
+          <section ref={faqRef} className="mb-16 reveal">
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
               Frequently Asked Questions
             </h2>
@@ -381,10 +392,10 @@ const HowItWorks = () => {
             <h2 className="text-xl md:text-2xl font-bold mb-5 text-foreground">
               Related Reading
             </h2>
-            <div className="grid md:grid-cols-2 gap-4">
+            <div ref={relatedRef} className="grid md:grid-cols-2 gap-4 reveal">
               <Link
                 to="/learn/how-automated-pentesting-works"
-                className="p-5 rounded-xl border border-border bg-card hover:border-primary/40 transition-colors group"
+                className="p-5 rounded-xl border border-border bg-card hover:border-primary/40 transition-colors group reveal-child"
               >
                 <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
                   Guide
@@ -398,7 +409,7 @@ const HowItWorks = () => {
               </Link>
               <Link
                 to="/learn/alternatives-to-annual-penetration-tests"
-                className="p-5 rounded-xl border border-border bg-card hover:border-primary/40 transition-colors group"
+                className="p-5 rounded-xl border border-border bg-card hover:border-primary/40 transition-colors group reveal-child"
               >
                 <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
                   Guide
@@ -414,7 +425,7 @@ const HowItWorks = () => {
           </section>
 
           {/* CTA */}
-          <div className="p-6 md:p-8 rounded-xl border border-primary/20 bg-primary/[0.03] text-center space-y-4">
+          <div ref={ctaRef} className="p-6 md:p-8 rounded-xl border border-primary/20 bg-primary/[0.03] text-center space-y-4 reveal">
             <h3 className="text-xl font-bold text-foreground">
               See it run against your environment
             </h3>

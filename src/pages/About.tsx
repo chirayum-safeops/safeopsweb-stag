@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ArrowRight, Target, ShieldCheck, Layers } from "lucide-react";
 
 const setMeta = (name: string, content: string, isProperty = false) => {
@@ -39,6 +40,12 @@ const focusAreas = [
 ];
 
 const About = () => {
+  const heroRef = useScrollReveal({ threshold: 0.1 });
+  const companyRef = useScrollReveal({ threshold: 0.1 });
+  const missionRef = useScrollReveal({ threshold: 0.1 });
+  const focusRef = useScrollReveal({ staggerChildren: true, staggerDelay: 60 });
+  const ctaRef = useScrollReveal({ threshold: 0.1 });
+
   useEffect(() => {
     const url = "https://safeops.io/about";
     document.title = "About SafeOps | AI-Powered Continuous Penetration Testing";
@@ -99,7 +106,7 @@ const About = () => {
       <Navbar />
       <main className="container mx-auto px-4 pt-32 pb-20">
         <article className="max-w-3xl mx-auto">
-          <div className="text-center mb-14">
+          <div ref={heroRef} className="text-center mb-14 reveal">
             <h1 className="text-3xl md:text-5xl font-bold leading-tight text-foreground">
               Continuous Security Validation,{" "}
               <span className="text-gradient-primary">Powered by AI Agents</span>
@@ -107,7 +114,7 @@ const About = () => {
           </div>
 
           {/* Company description */}
-          <section className="mb-14">
+          <section ref={companyRef} className="mb-14 reveal">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
                 <Layers className="h-5 w-5" />
@@ -133,7 +140,7 @@ const About = () => {
           </section>
 
           {/* Mission */}
-          <section className="mb-14">
+          <section ref={missionRef} className="mb-14 reveal">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
                 <Target className="h-5 w-5" />
@@ -165,11 +172,11 @@ const About = () => {
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-5">
               SafeOps focuses on offensive security and continuous security validation across modern attack surfaces. Core areas include:
             </p>
-            <ul className="grid sm:grid-cols-2 gap-3">
+            <ul ref={focusRef} className="grid sm:grid-cols-2 gap-3 reveal">
               {focusAreas.map((a) => (
                 <li
                   key={a}
-                  className="text-sm md:text-base text-foreground pl-5 relative"
+                  className="text-sm md:text-base text-foreground pl-5 relative reveal-child"
                 >
                   <span className="absolute left-0 top-[10px] w-2 h-2 rounded-full bg-primary" />
                   {a}
@@ -182,7 +189,7 @@ const About = () => {
           </section>
 
           {/* CTA */}
-          <div className="mt-12 p-6 md:p-8 rounded-xl border border-primary/20 bg-primary/[0.03] text-center space-y-4">
+          <div ref={ctaRef} className="mt-12 p-6 md:p-8 rounded-xl border border-primary/20 bg-primary/[0.03] text-center space-y-4 reveal">
             <h3 className="text-xl font-bold text-foreground">
               See SafeOps in action
             </h3>
