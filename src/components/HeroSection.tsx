@@ -34,13 +34,6 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left: Content */}
           <div ref={contentRef} className="space-y-8 reveal">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              <span className="text-xs font-semibold text-primary uppercase tracking-wider">
-                Automated Continuous Penetration Testing Platform
-              </span>
-            </div>
-
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-foreground">
               Hackers Don't Wait, <span className="text-gradient-primary">Neither Should You.</span>
             </h1>

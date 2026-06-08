@@ -100,12 +100,6 @@ const About = () => {
       <main className="container mx-auto px-4 pt-32 pb-20">
         <article className="max-w-3xl mx-auto">
           <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              <span className="text-xs font-semibold text-primary uppercase tracking-wider">
-                About SafeOps
-              </span>
-            </div>
             <h1 className="text-3xl md:text-5xl font-bold leading-tight text-foreground">
               Continuous Security Validation,{" "}
               <span className="text-gradient-primary">Powered by AI Agents</span>
