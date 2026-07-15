@@ -12,6 +12,7 @@ import HowItWorks from "./pages/HowItWorks";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
+import LeadCaptureModal from "./components/LeadCaptureModal";
 import { usePageTracking } from "./hooks/usePageTracking";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
       <BrowserRouter basename={import.meta.env.BASE_URL}>
         <ScrollToTop />
         <AppRoutes />
+        <LeadCaptureModal />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
