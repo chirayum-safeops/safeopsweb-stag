@@ -25,7 +25,9 @@ import { ShieldCheck, ArrowRight, CheckCircle2 } from "lucide-react";
  * Leads arrive by email to the address below; swap this URL (or point it at a
  * webhook) when a CRM is added later — nothing else in this file needs to change.
  */
-const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/ajax/contact@safeops.io";
+// NOTE: temporarily pointed at cmahajan@ for staging tests — switch back to
+// contact@safeops.io before production launch.
+const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/ajax/cmahajan@safeops.io";
 const STORAGE_KEY = "safeops_lead_capture_v1";
 const SHOW_DELAY_MS = 15000; // appear after 15s on the page
 const DISMISS_SUPPRESS_DAYS = 7; // don't re-nag someone who dismissed it
