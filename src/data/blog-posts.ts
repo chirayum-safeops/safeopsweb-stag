@@ -17,6 +17,7 @@ import aiAgentsSimulateAttacks from "@/assets/blog/how-ai-agents-simulate-real-w
 import soc2Readiness from "@/assets/blog/how-continuous-pentesting-supports-soc2-readiness.jpg";
 import redTeamStartups from "@/assets/blog/Red_Team_In_startups.jpg";
 import managingDependencyUpdates from "@/assets/blog/managing-third-party-dependency-updates.jpg";
+import chainLowRiskVulns from "@/assets/blog/How_hackers_chain_low_risk.png";
 
 export interface BlogPost {
   slug: string;
@@ -31,6 +32,93 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "how-attackers-chain-low-risk-vulnerabilities",
+    title: "How Attackers Chain Low-Risk Vulnerabilities into a Major Breach",
+    excerpt: "Breaches rarely come from the one critical you feared — but from the 'lows' you deferred, chained in an order you never checked. Here's how attackers do it.",
+    date: "2026-07-17",
+    author: "SafeOps Team",
+    readTime: "9 min read",
+    tags: ["Attack Paths", "Vulnerability Management", "Risk Prioritization", "Offensive Security"],
+    coverImage: chainLowRiskVulns,
+    content: `
+Read enough breach post-mortems and you'll notice something strange. Again and again, the companies that got breached weren't sitting on some glaring, critical, unpatched hole. Their scanners were reasonably green. Their reports were full of "lows" and "mediums" that nobody prioritized because, individually, none of them looked dangerous.
+
+And that's exactly how they got breached.
+
+The single most misunderstood idea in security is that risk adds up. It doesn't—it multiplies. A handful of individually unremarkable weaknesses, connected in the right order, can produce a catastrophic outcome that none of them could cause alone. Attackers have always understood this. Most security tooling still doesn't. Closing that gap is one of the highest-leverage things a security leader can do.
+
+## The scoring problem at the heart of it
+
+Most vulnerability management runs on severity scores—CVSS ratings that label each finding critical, high, medium, or low. Teams triage top-down: fix the criticals, get to the highs, and let the lows and mediums pile up in a backlog no one ever clears.
+
+This is a rational response to limited time. It's also precisely the blind spot attackers exploit.
+
+The problem is that CVSS scores each vulnerability in isolation. It asks "how bad is this one thing, on its own?"—a reasonable question that produces a dangerously incomplete picture. Because an attacker never faces your vulnerabilities one at a time. They face your environment as a whole, and they reason about how weaknesses combine. A "low" that leaks an internal hostname is trivial alone. A "medium" authorization gap is contained alone. A "low" missing rate limit is a footnote alone. Chain the three together and you may have a full account takeover.
+
+Severity-in-isolation measures the individual links. Attackers measure the chain. And the chain is what breaches you.
+
+## What a chain actually looks like
+
+Abstract talk about "chaining" is easy to nod along to and hard to feel. So here's a concrete, realistic sequence—the kind that shows up in real incidents—built entirely from findings most teams would deprioritize.
+
+**Link 1 — An information disclosure (rated low).** An API endpoint returns verbose error messages. On its own, harmless: it just exposes a stack trace and an internal service hostname. A scanner flags it, scores it low, and it sits in the backlog. But the attacker now knows the name of an internal admin service that isn't supposed to be public knowledge.
+
+**Link 2 — A forgotten, exposed asset (rated low).** Reconnaissance turns up that the admin service has a staging subdomain that was never decommissioned. It's not linked anywhere; it's "hidden." A scanner might note it as informational. To the attacker, it's a door that everyone forgot was there.
+
+**Link 3 — A broken object-level authorization flaw (rated medium).** The staging admin panel has an endpoint that fetches user records by ID—without properly checking whether the requester is authorized for that record. Alone, it's a "medium": you can read data you shouldn't. But combine it with what's next.
+
+**Link 4 — No rate limiting (rated low).** That same endpoint has no rate limiting. Individually, missing rate limits is about as low-priority as findings get. But now the attacker can iterate through every user ID, at speed, extracting records in bulk—turning a single unauthorized read into a full-database exfiltration.
+
+**Link 5 — A reused credential (the payoff).** Among the extracted records is an admin's session token or a credential reused elsewhere. That unlocks privileged access to production. The "lows" and "mediums" have compounded into a critical breach.
+
+Look back at that chain. Every individual finding was something a busy team would reasonably defer. A scanner would have scored the whole set as low-to-medium noise. But an attacker reading the same findings sees a clean, five-step path from a verbose error message to your production database.
+
+That is the difference between how tools score risk and how attackers use it.
+
+## Why traditional tooling misses this
+
+If chaining is so central to real attacks, why doesn't standard tooling catch it? A few structural reasons:
+
+**Scanners are built to enumerate, not to reason.** A vulnerability scanner is very good at matching your systems against known signatures and producing a list. It is not designed to ask "if I combine finding #47 with finding #212, what becomes possible?" That combinatorial reasoning is a fundamentally different task.
+
+**Severity scores flatten context.** A "medium" in a dead-end system and a "medium" that sits one step from your crown jewels get the same label. The score can't see the surrounding topology—the very thing that determines whether a finding is a footnote or a foothold.
+
+**Point-in-time tests see a snapshot.** Even a traditional annual pentest, which can chain, only does so for the environment as it existed on test day. The chain that forms next month, when a new endpoint ships alongside an old forgotten asset, goes unseen until the next test—if ever.
+
+The result is a security program that's optimized to close individual high-severity findings while remaining structurally blind to the low-severity combinations that produce most real breaches.
+
+## The shift: from finding lists to attack paths
+
+The fix isn't to panic and treat every low as a critical—that just replaces one unmanageable backlog with a larger one. The fix is to change the unit of analysis from the individual finding to the attack path.
+
+An attack-path view asks a different, better question. Not "how severe is each vulnerability?" but "what chains of weaknesses, combined, actually lead to something that matters—and which of my findings sit on those paths?"
+
+This reframing is transformative for prioritization. Suddenly that "low" information disclosure isn't low—it's the first link in a validated path to your database, and it jumps to the top of the queue. And the genuinely isolated "high" in a sandboxed dead-end system, with no path to anything valuable, can wait. You stop prioritizing by abstract severity and start prioritizing by real, demonstrated exploitability. Your team's limited time flows to the findings that actually reduce breach risk.
+
+## What security leaders should do
+
+If this pattern resonates, a few concrete shifts to push for:
+
+**Stop trusting severity scores as your prioritization strategy.** CVSS is a useful input, not a plan. A backlog full of deferred "lows" is not proof of low risk—it may be an unexamined pile of attack-chain ingredients.
+
+**Ask to see attack paths, not just finding counts.** The right question to your team or your testing vendor isn't "how many vulnerabilities do we have?" It's "what are the actual paths an attacker could chain to reach our sensitive data, and what sits on them?"
+
+**Test the combinations, not just the components.** Validation has to attempt the chaining an attacker would—actually walking multi-step paths—rather than reporting each weakness in isolation.
+
+**Do it continuously.** Chains form and dissolve as your environment changes. A new deploy can complete a chain that was previously incomplete. Only continuous validation catches these as they emerge, instead of discovering them after they've been exploited.
+
+## Where SafeOps fits
+
+This is the core of what SafeOps was built to do. Our AI agents don't just enumerate weaknesses and hand you a scored list—they simulate how a real attacker reasons, actively chaining findings together to discover the multi-step paths that lead to real impact.
+
+Instead of a flat backlog of criticals, highs, and deprioritized lows, you get the actual attack paths across your environment: the specific sequences—including the "low" and "medium" findings that only become dangerous in combination—that an adversary could walk to reach sensitive data or critical systems. Each finding is validated for genuine exploitability and prioritized by the paths it sits on, so your team works from a ranked list of what truly reduces breach risk rather than a pile of context-free scores. And because the testing runs continuously, SafeOps catches new chains the moment a deploy or configuration change creates one—not months later in the next assessment.
+
+The takeaway for security leaders is simple, and it's the thing scanners can't give you: breaches rarely come from the one vulnerability you feared. They come from the five you didn't, connected in an order you never checked. Seeing your environment the way an attacker does—as a set of paths, not a list of findings—is how you close that gap before someone else walks it.
+
+**Security should be continuous. Not quarterly. Not reactive.**
+`,
+  },
   {
     slug: "managing-third-party-dependency-updates",
     title: "The Code You Didn't Write Is Your Biggest Risk: Managing Third-Party Dependency Updates",
