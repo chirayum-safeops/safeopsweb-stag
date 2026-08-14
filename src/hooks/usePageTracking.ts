@@ -31,6 +31,7 @@ export const usePageTracking = () => {
     if (window.gtag) {
       window.gtag("event", "page_view", {
         send_to: GA_MEASUREMENT_ID,
+        page_location: `${window.location.origin}${pagePath}`,
         page_path: pagePath,
         page_title: document.title,
       });
