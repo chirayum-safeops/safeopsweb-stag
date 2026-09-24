@@ -22,6 +22,8 @@ import devsecopsOrgWide from "@/assets/blog/devsecops-no-longer-just-developer-r
 import endPointInTime from "@/assets/blog/end-of-point-in-time-security-testing.jpg";
 import blackHat2026 from "@/assets/blog/black-hat-2026-ai-became-the-whole-conversation.jpg";
 import fromCicdToContinuousSecurity from "@/assets/blog/from-cicd-to-continuous-security.jpg";
+import shadowApisTenantIsolation from "@/assets/blog/shadow-apis-tenant-isolation.jpg";
+import postQuantumCryptographyCicd from "@/assets/blog/post-quantum-cryptography-cicd.jpg";
 
 export interface BlogPost {
   slug: string;
@@ -36,6 +38,179 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "post-quantum-cryptography-cicd",
+    title: "Post-Quantum Cryptography in CI/CD: The Silent Shift Companies Must Plan for Today",
+    excerpt: "The data you encrypt today may already be in an attacker's archive. PQC isn't a someday problem — and the real migration work lives in your CI/CD pipeline.",
+    date: "2026-09-21",
+    author: "SafeOps Team",
+    readTime: "6 min read",
+    tags: ["Post-Quantum Cryptography", "CI/CD", "DevSecOps", "Crypto-Agility"],
+    coverImage: postQuantumCryptographyCicd,
+    content: `
+The data your organization encrypts today may already be sitting in an attacker's archive, waiting for the day decryption becomes possible.
+
+This isn't speculative fear-mongering. It's a documented strategy known as "harvest now, decrypt later," and it's precisely why post-quantum cryptography has moved from an academic curiosity to a board-level conversation in the span of a few years. The uncomfortable part isn't that quantum computers capable of breaking today's encryption don't exist yet. It's that the data you're encrypting right now has a shelf life longer than the timeline anyone can guarantee.
+
+## Why this isn't a "someday" problem
+
+Security leaders are used to prioritizing threats by immediacy. Ransomware is here now. A misconfigured S3 bucket is exploitable today. A cryptographically relevant quantum computer, by most credible estimates, is still years away.
+
+But encryption isn't just about protecting data at the moment. It's about protecting data for as long as that data remains sensitive, financial records, health data, intellectual property, government and defense communications, long-term customer PII. If any of that data is captured today and stored by an adversary, it becomes retroactively exposed the moment quantum decryption becomes viable. The attack already happened. You just haven't found out yet.
+
+That's what makes post-quantum cryptography (PQC) different from most security initiatives: the cost of waiting isn't paid later. It's being paid right now, quietly, every day encrypted data sits unprotected against a future threat.
+
+## Where this actually lives: your CI/CD pipeline
+
+Most conversations about PQC focus on the algorithms CRYSTALS-Kyber, CRYSTALS-Dilithium, the NIST-standardized replacements for RSA and ECC. Fewer focus on where the real migration work has to happen: the CI/CD pipeline itself.
+
+Your pipeline is a dense web of cryptographic dependencies most teams have never fully mapped:
+
+- **Code signing:** Build artifacts, containers, and release binaries signed with algorithms that may not be quantum-resistant.
+- **TLS everywhere:** Every service-to-service call, every API integration, every webhook, secured by cipher suites built on classical cryptography.
+- **Secrets management:** Vaults, key management systems, and certificate authorities, all issuing and rotating keys using pre-quantum standards.
+- **Third-party dependencies:** Package managers, container registries, and CI/CD platforms themselves, each with their own cryptographic assumptions baked in.
+- **SBOM and supply chain attestation:** The very mechanisms meant to prove integrity, dependent on signatures that quantum computing could eventually forge.
+
+This is the part security leaders often miss: PQC migration isn't a single project with a defined scope. It's a distributed, cross-cutting change that touches nearly every automated system your organization relies on to ship code.
+
+## The actionable question: where do you actually start?
+
+Most organizations don't need to panic-migrate everything tomorrow. They need a plan built on visibility and prioritization, not urgency for its own sake.
+
+1. **Inventory your cryptographic footprint:** Most security teams can't answer "where in our pipeline do we rely on RSA or ECC?" without significant manual effort. Crypto-agility starts with knowing what you actually have.
+
+2. **Classify data by shelf life, not just sensitivity:** A password reset token that expires in an hour carries different quantum risk than a decade-long patient record or a trade secret. Prioritize PQC migration for data whose sensitivity outlives realistic quantum timelines.
+
+3. **Test cryptographic agility before you need it:** Can your systems swap signing algorithms without a full re-architecture? Most legacy pipelines were never designed to be crypto-agile, and you won't find out until you try to change something under pressure.
+
+4. **Validate, don't assume, vendor readiness:** Your CI/CD platform, your cloud provider, your certificate authority, each is on its own PQC timeline. "Compliant" claims deserve the same scrutiny you'd apply to any other security control.
+
+5. **Treat this as a continuous process, not a single migration event:** NIST's PQC standards will keep evolving. Hybrid approaches, classical and post-quantum algorithms running in parallel, are already the recommended interim path. Your pipeline needs to be built to change again.
+
+## The question every security leader should be asking
+
+Not "when will quantum computers break encryption?", nobody can answer that with precision, and waiting for certainty is itself the risk.
+
+The better question is:
+
+> If we had to migrate our CI/CD cryptography under pressure, right now, would we even know where to start?
+
+For most organizations, the honest answer is no. And that gap, the distance between "we know PQC matters" and "we know exactly where our pipeline depends on cryptography that needs to change", is exactly where risk quietly accumulates.
+
+## How SafeOps helps you close that gap
+
+This is precisely the kind of hidden, cross-cutting risk that traditional, point-in-time security assessments aren't built to catch. Cryptographic dependencies don't show up cleanly in a checklist. They show up in how your systems actually behave, which is why testing them requires the same continuous, adversarial approach SafeOps applies across your entire attack surface.
+
+- **Continuous attack surface discovery:** Mapping applications, APIs, infrastructure, and the CI/CD pipeline itself, so cryptographic dependencies don't stay invisible.
+- **AI-powered attack simulations:** Testing built around your real architecture and business logic, surfacing where legacy cryptographic assumptions create exploitable gaps.
+- **Human-validated results:** Findings confirmed by real security experts, so your team prioritizes what actually matters instead of chasing theoretical risk.
+- **Continuous security validation:** Because crypto-agility isn't a one-time migration, and neither is the testing that should accompany it.
+
+We don't just tell you that PQC matters. We help you find out, concretely, where your pipeline's cryptographic assumptions would fail under real adversarial pressure, before that gap becomes the reason a decade of encrypted data was never actually protected at all.
+
+## The bottom line
+
+Post-quantum cryptography isn't a distant, theoretical problem for someone else's roadmap. It's a silent shift already underway in the infrastructure you ship code through every single day.
+
+The organizations that manage this well won't be the ones who wait for certainty about when quantum computing becomes a real threat. They'll be the ones who already know exactly where their cryptographic dependencies live, and who tested that knowledge before they needed it.
+
+The migration will happen eventually. The question is whether you're prepared, or whether you're finding out the hard way.
+`,
+  },
+  {
+    slug: "shadow-apis-tenant-isolation",
+    title: "Shadow APIs and Tenant Isolation: The Unresolved Frontier in Microservices Security",
+    excerpt: "Your microservices architecture almost certainly has more exposed APIs than your security team knows about — and that's where the costly breaches happen.",
+    date: "2026-09-15",
+    author: "SafeOps Team",
+    readTime: "6 min read",
+    tags: ["Shadow APIs", "Tenant Isolation", "Microservices", "API Security"],
+    coverImage: shadowApisTenantIsolation,
+    content: `
+Your microservices architecture almost certainly has more exposed APIs than your security team knows about.
+
+That's not an alarmist guess. Statistically, it's the most likely reality for any organization that has scaled its microservices footprint over the past couple of years. And it's precisely there, in what isn't documented, isn't inventoried, and isn't being monitored, that the most costly breaches happen.
+
+## The problem nobody designed, but everyone has
+
+When an organization adopts microservices, it gains speed, scalability, and teams that can deploy independently. But it also gains something that rarely makes it onto the roadmap: an attack surface that grows faster than any inventory can keep up with.
+
+Every team that ships a new service, exposes a "temporary" internal endpoint, or integrates a new multi-tenant client is, often unintentionally, expanding the organization's real perimeter. The result is two risk categories that rarely get the executive-level attention they deserve: Shadow APIs and tenant isolation failures.
+
+## Shadow APIs: what isn't in the inventory can't be protected
+
+A Shadow API is exactly what it sounds like: an endpoint that exists and works, but isn't documented, isn't in the official API catalog, and often isn't even on security's radar.
+
+How do they show up?
+
+- An internal service meant "just for staging" that ends up reachable in production.
+- An old API version that was never formally deprecated.
+- A debugging or admin endpoint a developer left active after an integration.
+- Third-party or partner APIs connected without going through a formal security review.
+
+The problem isn't just that they exist. It's that you can't protect what you don't know you have. A WAF, an API gateway, or a centralized authentication policy are useless against an endpoint that was never part of the original security design.
+
+## Tenant isolation: the promise the architecture doesn't always keep
+
+In multi-tenant architectures, SaaS platforms, B2B systems, anything where multiple customers share infrastructure, separation between tenants isn't a technical detail. It's the core promise of the business model: one customer's data must never be accessible to another.
+
+But that separation doesn't happen automatically just because the system was labeled "multi-tenant" on an architecture diagram. It depends on every layer, authentication, authorization, business logic, data layer, correctly implementing isolation, and staying consistent as the system evolves.
+
+The most common failures aren't exotic bugs. They're quiet, structural ones:
+
+- A client-controlled parameter (tenant_id, account_id) that isn't properly validated on the backend.
+- A shared caching layer that doesn't correctly segment by tenant.
+- A new microservice that inherits authorization logic from another service, but doesn't replicate the isolation checks correctly.
+- Admin-role permissions that aren't scoped down to the current tenant's context.
+
+When these failures exist, it isn't just an isolated vulnerability. It means an organization is unknowingly giving one customer the ability to see, modify, or delete another customer's data.
+
+## The question every security leader should be asking
+
+It's not "do we have an API catalog?" or "is our architecture multi-tenant by design?"
+
+It's: "Have we actively tried to break these boundaries, the way an attacker or a malicious tenant would, or are we just trusting that the design works as documented?"
+
+Most organizations can't answer that with confidence, not because their architects are careless, but because the API inventory and tenant isolation boundaries change constantly, and traditional testing, quarterly, annual, documentation-based, simply can't keep pace.
+
+## Why periodic testing isn't enough anymore
+
+An annual pentest evaluates what existed at the moment of the test. But in an active microservices environment:
+
+- New services ship weekly, each one is a new potential attack surface.
+- Endpoints get new versions without documentation always keeping up.
+- Third-party integrations get added without always going through formal review.
+- Authorization logic changes as multiple teams work in parallel.
+
+The result: by the time the next audit cycle rolls around, the attack surface has already changed completely. Shadow APIs and tenant isolation gaps don't wait for the next report, and attackers don't either.
+
+## How SafeOps approaches this frontier differently
+
+This is exactly the kind of risk that demands a shift in approach: from periodic validation to continuous adversarial pressure.
+
+SafeOps doesn't just scan what's already documented. Our approach is built to discover and actively test exactly what most traditional tools miss:
+
+- **Continuous attack surface discovery:** Active mapping of applications, APIs, endpoints, and infrastructure, including what isn't in the official inventory.
+- **AI-powered attack simulations:** Tests built around your actual business logic, not just generic vulnerability patterns.
+- **Human-validated results:** Every finding related to tenant isolation or API exposure is confirmed by real experts, cutting out false-positive noise.
+- **Continuous, not point-in-time, testing:** Because your architecture changes every day, and your security validation should too.
+
+We don't just tell you where your tenant isolation might fail. We prove it, the same way an attacker or a malicious tenant would, before it becomes a data breach, a compliance violation, or a loss of trust that no architecture can repair after the fact.
+
+## The bottom line
+
+Shadow APIs and tenant isolation failures aren't exotic vulnerabilities reserved for unusually complex architectures. They're the natural byproduct of building fast, scaling teams, and shipping with autonomy, exactly what your organization is probably doing right in every other respect.
+
+The gap between "designed to be secure" and "tested under real attack conditions" remains unresolved in most microservices architectures.
+
+Closing it isn't an audit project. It's a continuous process.
+
+Want to know what's actually sitting in your attack surface, before an attacker finds it?
+
+**Security should be continuous. Not quarterly. Not reactive.**
+`,
+  },
   {
     slug: "from-cicd-to-continuous-security",
     title: "From CI/CD to Continuous Security: What DevSecOps Teams Need Next",
