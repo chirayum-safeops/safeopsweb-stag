@@ -24,6 +24,7 @@ import blackHat2026 from "@/assets/blog/black-hat-2026-ai-became-the-whole-conve
 import fromCicdToContinuousSecurity from "@/assets/blog/from-cicd-to-continuous-security.jpg";
 import shadowApisTenantIsolation from "@/assets/blog/shadow-apis-tenant-isolation.jpg";
 import postQuantumCryptographyCicd from "@/assets/blog/post-quantum-cryptography-cicd.jpg";
+import securityFeedbackLoop from "@/assets/blog/security-feedback-loop-proving-vulnerabilities-fixed.jpg";
 
 export interface BlogPost {
   slug: string;
@@ -38,6 +39,82 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "security-feedback-loop-proving-vulnerabilities-fixed",
+    title: "The Security Feedback Loop: From Finding Vulnerabilities to Proving They're Fixed",
+    excerpt: "A closed ticket isn't a closed vulnerability. Why fixes that are never retested leave real risk behind, and how to build a loop that proves they hold.",
+    date: "2026-10-05",
+    author: "SafeOps Team",
+    readTime: "4 min read",
+    tags: ["Vulnerability Management", "Remediation", "Continuous Validation", "Security Leadership"],
+    coverImage: securityFeedbackLoop,
+    content: `
+Somewhere in your organization is a spreadsheet, a ticket queue, or a dashboard listing vulnerabilities marked "resolved."
+
+How many of those were actually retested? Not reviewed, not closed by a developer's self-attestation, not marked done because the sprint ended, retested, under the same adversarial conditions that found them in the first place.
+
+For most organizations, the honest answer is: far fewer than the dashboard suggests. And that gap is where a surprising amount of real risk quietly survives.
+
+## Finding vulnerabilities was never the hard part
+
+Security teams have gotten good at finding problems. Scanners, pentests, bug bounties, and now AI-powered testing all generate findings at a volume most organizations can barely triage, let alone fully remediate. Finding is no longer the bottleneck.
+
+The bottleneck is what happens after the finding, and that's the part almost nobody talks about at the board level.
+
+A vulnerability report gets sent to engineering. A fix gets shipped. The ticket gets closed. But closing a ticket and closing a vulnerability are not the same thing. A patch can be incomplete. A fix can address the symptom but not the root cause. A configuration change can get reverted in the next deployment. Without verification, "fixed" is a status field, not a fact.
+
+## The three broken links in the traditional loop
+
+Most organizations run a security process that looks complete on paper but has real gaps in practice:
+
+1. **Detection without context:** A scanner flags hundreds of findings with severity scores that don't reflect actual exploitability. Engineering teams, overwhelmed, end up prioritizing by CVSS score rather than real business risk, often fixing low-impact issues first simply because they're easier to close.
+
+2. **Remediation without verification:** A developer applies a fix and marks the ticket resolved. Nobody re-attacks the system to confirm the vulnerability is actually gone. The assumption that "the fix should work" quietly replaces the discipline of proving that it does.
+
+3. **Reporting without a real feedback loop:** A security report goes to leadership showing findings and remediation status. But if remediation was never independently verified, that report is communicating confidence the organization hasn't actually earned.
+
+Each of these gaps is small on its own. Together, they mean an organization's security posture can look substantially better on a dashboard than it actually is in production, and nobody finds out until an attacker does.
+
+## Why this matters more at the executive level than it seems
+
+For a CISO or CTO, "we fixed it" isn't just an engineering status. It's a claim made to the board, to auditors, to customers filling out security questionnaires, and increasingly to regulators. When that claim isn't independently verified, the organization isn't just carrying technical risk, it's carrying reporting risk. The distance between what leadership believes about the organization's security posture and what's actually true in production is, itself, a liability.
+
+This is exactly the gap that turns "we had a vulnerability" into "we had a vulnerability we thought we fixed eighteen months ago."
+
+## What a real security feedback loop looks like
+
+Closing this gap requires treating remediation verification as a discipline, not an afterthought. In practice, that means:
+
+1. **Prioritize by exploitability, not just severity:** A critical-rated finding that requires unrealistic preconditions to exploit may matter less than a medium-rated one an attacker could chain into something serious. Validate exploitability before ranking remediation priority.
+
+2. **Require proof, not just a closed ticket:** Every "fixed" status should be backed by a retest under the same conditions that surfaced the original finding. If nobody attacked it again, nobody actually confirmed it's fixed.
+
+3. **Retest on a cadence that matches your deployment velocity, not your audit calendar:** Code changes weekly, sometimes daily. A fix verified once, months ago, tells you nothing about whether a later deployment quietly reintroduced the same issue.
+
+4. **Make the feedback loop visible to leadership:** Security reporting to the board should distinguish between "found and reported," "remediated," and "remediated and independently verified." Collapsing those into a single "resolved" status hides exactly the risk that matters most.
+
+5. **Treat verification as continuous, not episodic:** A fix that holds today under one set of conditions may not hold after the next infrastructure change, dependency update, or team handoff. The loop doesn't close once. It has to keep closing.
+
+## How SafeOps closes the loop, not just the ticket
+
+This is the exact gap SafeOps was built to close. Most security tools are optimized for the finding half of the loop. We're built for the whole thing.
+
+- **Continuous attack surface discovery:** So new findings don't wait for the next scheduled assessment to surface.
+- **AI-powered attack simulations:** Testing built around your actual business logic, prioritizing what's genuinely exploitable over what merely scores high.
+- **Human-validated results:** Every finding confirmed by real security experts, so your team acts on real risk instead of chasing noise.
+- **Continuous retesting:** Because a fix that isn't verified isn't a fix, it's a hope. We retest as environments evolve and fixes ship, so "resolved" means what it says.
+
+The result isn't just a longer list of findings. It's a security posture your organization can actually stand behind, in a board meeting, in a security questionnaire, or in front of an auditor, because every claim of "fixed" has been tested, not assumed.
+
+## The bottom line
+
+The organizations that get burned by a vulnerability aren't always the ones that never found it. Often, they're the ones who found it, believed it was fixed, and never verified that belief.
+
+Finding vulnerabilities is table stakes. Proving they're fixed, continuously, under real adversarial pressure, is what actually closes the loop.
+
+A security program that can't prove its fixes hold isn't a finished program. It's an open question waiting for an attacker to answer it first.
+`,
+  },
   {
     slug: "post-quantum-cryptography-cicd",
     title: "Post-Quantum Cryptography in CI/CD: The Silent Shift Companies Must Plan for Today",
