@@ -26,6 +26,7 @@ import shadowApisTenantIsolation from "@/assets/blog/shadow-apis-tenant-isolatio
 import postQuantumCryptographyCicd from "@/assets/blog/post-quantum-cryptography-cicd.jpg";
 import securityFeedbackLoop from "@/assets/blog/security-feedback-loop-proving-vulnerabilities-fixed.jpg";
 import ephemeralityAsDefense from "@/assets/blog/ephemerality-as-defense-securing-short-lived-infrastructure-gitops.jpg";
+import daysToExploitGap from "@/assets/blog/44-days-to-exploit-74-days-to-fix-gap-attackers-live-in.jpg";
 
 export interface BlogPost {
   slug: string;
@@ -40,6 +41,88 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "44-days-to-exploit-74-days-to-fix-gap-attackers-live-in",
+    title: "44 Days to Exploit, 74 Days to Fix: The Gap Attackers Live In",
+    excerpt: "Exploits now land 44 days after disclosure, while fixes take 74. Here's why that 30-day gap exists and how continuous, exploit-driven testing closes it.",
+    date: "2026-10-12",
+    author: "SafeOps Team",
+    readTime: "4 min read",
+    tags: ["Vulnerability Management", "Exploitability", "Continuous Testing", "Security Leadership"],
+    coverImage: daysToExploitGap,
+    content: `
+In 2020, the time between a vulnerability being disclosed and a working exploit appearing was more than 700 days. In 2025, it was 44.
+
+Over the same period, the average time organizations take to remediate a high- or critical-severity CVE sits at 74 days.
+
+Do the math. That is a 30-day window in which a known, serious vulnerability is both publicly exploitable and still open in your environment. Not a theoretical window. An operational one, repeating for every critical CVE that touches your stack.
+
+*Metrics from Sonatype and Mandiant's M-Trends 2026 report.*
+
+## The clock attackers run on has collapsed
+
+For years, security programs were built on an unspoken assumption: after a vulnerability is disclosed, defenders have time. Months, sometimes years. Enough time to triage, schedule the patch, test it, and roll it out in the next maintenance window.
+
+That assumption is now broken. Going from more than 700 days to 44 is not an incremental improvement in attacker efficiency. It is a different regime. The forces behind it are not mysterious:
+
+- **Faster analysis:** Patches, advisories, and code diffs are analyzed and turned into working exploits in days, increasingly with AI assistance.
+- **Lower skill barrier:** Proof-of-concept code is shared publicly, packaged into tooling, and reused by people who never wrote the original exploit.
+- **Industrialized scanning:** Attackers scan the internet for newly disclosed weaknesses continuously, not once a quarter.
+- **Economic incentive:** The first actor to weaponize a widely deployed flaw collects the most value, so speed is the whole game.
+
+The result is that disclosure is no longer the start of a grace period. For attackers, it is the starting gun.
+
+## And the defender's clock has barely moved
+
+The uncomfortable half of this story is the 74 days. It is not a measure of negligence. It reflects how remediation actually works inside real organizations:
+
+- Findings arrive in volume, and teams cannot tell which ones matter.
+- Severity scores say what a flaw could do, not whether it is reachable and exploitable in your environment.
+- Fixes compete with roadmap work, change freezes, and legacy dependencies nobody wants to touch.
+- A closed ticket is treated as a closed vulnerability, without independent verification.
+
+None of this is solved by asking teams to work harder. A 30-day gap built from queues, approvals, and prioritization problems does not close through effort. It closes through a different operating model.
+
+## Why this matters at the executive level
+
+For a CISO or CTO, these two numbers translate into something concrete: for roughly a month per critical CVE, the organization is carrying known, exploitable risk, and its reporting probably does not show it.
+
+Dashboards tend to count vulnerabilities found and tickets closed. They rarely show how long exploitable exposure actually lasted, or whether a "fixed" item was ever retested. That gap between what leadership believes and what is true in production is itself a liability, to boards, auditors, customers, and regulators.
+
+## What the shrinking window demands
+
+Closing a 30-day gap in a world where the attacker side keeps compressing requires changing what you optimize for. Five shifts matter most.
+
+1. **Prioritize by exploitability, not just severity:** A critical CVSS score on an unreachable internal service matters less than a medium-severity flaw an attacker can chain from the internet. Rank remediation by what is actually exploitable in your environment.
+
+2. **Measure exposure time, not ticket counts:** Track the interval from disclosure to verified remediation, per vulnerability class. If the number is 74 and attackers are at 44, you know exactly where you stand, and you can set a target that beats the attacker clock instead of merely reducing a backlog.
+
+3. **Verify fixes, don't assume them:** Every "resolved" status should be backed by a retest under the same conditions that found the issue. A patch can be partial, a config can be reverted, a later deploy can reintroduce the flaw.
+
+4. **Test continuously, not annually:** When exploits can appear within weeks of disclosure, an annual penetration test describes an environment that no longer exists. Validation has to keep pace with both your release cadence and the disclosure cycle.
+
+5. **Pre-empt the exploit with the attacker's own methods:** The most reliable way to know whether a newly disclosed flaw is exploitable against you is to try to exploit it, safely, before someone else does. That turns the 44-day clock from a threat into a head start.
+
+## How SafeOps closes the gap
+
+The 30-day window exists because most security programs find vulnerabilities on one cadence and prove fixes on another, much slower one. SafeOps is built to compress both.
+
+- **Continuous attack surface discovery:** Applications, APIs, cloud resources, and infrastructure are mapped as they change, so new exposure does not wait for a scheduled assessment to be noticed.
+- **AI-powered attack simulations:** Testing follows complete attack chains the way a real adversary would, showing which findings are genuinely exploitable in your environment rather than ranking everything by score alone.
+- **Human-validated results:** Every finding is confirmed by certified security experts, so your teams spend their limited remediation time on real risk, not noise.
+- **Continuous retesting:** When a fix ships, it is verified under the same conditions that surfaced the original issue, so "resolved" means proven.
+
+The goal is not a longer list of findings. It is a shorter window: less time between a weakness becoming exploitable and your organization knowing, fixing, and proving it is closed.
+
+## The bottom line
+
+Attackers went from more than 700 days to 44. Defenders are at 74. You cannot close that gap with a bigger backlog or an annual assessment. You close it by testing the way attackers operate: continuously, with exploitability in mind, and verifying every fix.
+
+The window between disclosure and exploitation has shrunk to weeks. Your security testing should not still be running on a calendar.
+
+**Want to know how long your critical exposures actually stay open? Book a 10-minute exposure audit with SafeOps.**
+`,
+  },
   {
     slug: "ephemerality-as-defense-securing-short-lived-infrastructure-gitops",
     title: "Ephemerality as Defense: Securing Short-Lived Infrastructure in GitOps Workflows",
