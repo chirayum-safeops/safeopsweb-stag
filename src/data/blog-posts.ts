@@ -27,6 +27,7 @@ import postQuantumCryptographyCicd from "@/assets/blog/post-quantum-cryptography
 import securityFeedbackLoop from "@/assets/blog/security-feedback-loop-proving-vulnerabilities-fixed.jpg";
 import ephemeralityAsDefense from "@/assets/blog/ephemerality-as-defense-securing-short-lived-infrastructure-gitops.jpg";
 import daysToExploitGap from "@/assets/blog/44-days-to-exploit-74-days-to-fix-gap-attackers-live-in.jpg";
+import agentsHackedByAgents from "@/assets/blog/your-agents-can-be-hacked-by-other-agents.jpg";
 
 export interface BlogPost {
   slug: string;
@@ -41,6 +42,109 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "your-agents-can-be-hacked-by-other-agents",
+    title: "Your Agents Can Be Hacked by Other Agents",
+    excerpt: "AI agents now trust each other's output. Here's how one agent can hijack another, why traditional controls miss it, and six steps to reduce the risk.",
+    date: "2026-10-19",
+    author: "SafeOps Team",
+    readTime: "5 min read",
+    tags: ["AI Security", "AI Agents", "Prompt Injection", "Continuous Testing"],
+    coverImage: agentsHackedByAgents,
+    content: `
+Your security team has probably tested your AI agents against a human attacker typing malicious prompts into a chat box.
+
+Has anyone tested them against another agent?
+
+That is the question this post is about, because it describes where agent security is heading. AI agents no longer just answer questions. They read email, call APIs, browse the web, query databases, and hand work to other agents. Every one of those connections is a place where another agent, hostile or compromised, can reach in.
+
+## The shift: from one human talking to one model, to agents talking to agents
+
+The first wave of AI security was about a person trying to trick a model: jailbreaks, prompt injection typed directly into a chat window. Defenses grew up around that picture.
+
+Agentic systems break that picture in three ways:
+
+- **Agents consume content they did not write.** A web page, a PDF, a support ticket, an email, or another agent's output becomes part of the agent's instructions the moment it is read.
+- **Agents act, not just answer.** They hold credentials and tool access. A manipulated agent can move money, change records, send messages, or call internal systems.
+- **Agents increasingly delegate to other agents.** Orchestrators hand tasks to specialist agents, third-party agents, and tool servers. Each handoff is a trust decision, and most are made implicitly.
+
+Put those together and the attacker no longer needs to talk to your agent directly. They only need to put the right words somewhere your agent will read them, or be an agent your agent trusts.
+
+## How an agent gets hacked by another agent
+
+None of these require a novel exploit. They abuse the way agents are designed to cooperate.
+
+1. **Indirect prompt injection through agent output:** Agent A summarizes a document, a web page, or a customer message. Hidden in that content is an instruction aimed at the next agent in the chain. Agent B receives it as a trusted message from a teammate and follows it.
+
+2. **The confused deputy:** A low-privilege agent cannot access sensitive data, but it can ask a high-privilege agent to do it. If the high-privilege agent does not verify who is really asking and why, the weaker agent, or whoever controls it, effectively inherits the stronger one's permissions.
+
+3. **Impersonation and spoofing:** In multi-agent systems, messages often claim an identity ("I am the billing agent"). Without strong authentication between agents, a malicious one can pose as a trusted peer and issue instructions.
+
+4. **Poisoned tools and capabilities:** Agents choose tools based on descriptions. A malicious or compromised tool server can describe itself in a way that steers the agent into leaking data or calling it in place of a legitimate tool.
+
+5. **Memory and context poisoning:** If agents share memory or persist notes between sessions, one successful injection can be written down and replayed to every future run, long after the original attacker is gone.
+
+6. **Cascading compromise:** Because agents chain together, a single manipulated step can spread. One small, unremarkable-looking instruction at the edge of the system can become a privileged action at the center.
+
+## Why traditional controls miss it
+
+Most existing security tooling assumes a clear line between code and data, and between a trusted internal component and an untrusted external one. Agents erase both lines.
+
+- **Input filters** look at what a human typed, not at what another agent passed along as "context."
+- **Network and identity controls** see an authorized service account making a valid API call, not the manipulated reasoning that led to it.
+- **Static review and scanners** inspect code. The vulnerability here lives in behavior: how an agent reasons when it reads something adversarial.
+- **Point-in-time testing** captures one configuration, while prompts, tools, models, and connected agents change constantly.
+
+The attack looks like normal operation from the outside, because by design it is the agent doing exactly what it was told. The problem is who it was told by.
+
+## The question every security leader should be asking
+
+Not "is our model safe?" Model-level safety is only one layer.
+
+The better question is:
+
+> If another agent, or content that an attacker controls, told one of our agents to misuse its access, would anything stop it?
+
+For most organizations the honest answer is "we don't know," because agent-to-agent paths have rarely been tested the way an attacker would test them.
+
+## Six practical steps to reduce the risk
+
+1. **Inventory every agent, tool, and connection:** You cannot defend trust relationships you have not mapped. List which agents exist, what they can access, what they read, and which other agents or tool servers they talk to.
+
+2. **Treat all agent-to-agent content as untrusted input:** A message from another agent is not automatically trustworthy, even if it comes from inside your own system. Apply the same suspicion you would to content from the open internet.
+
+3. **Enforce least privilege per agent, and per task:** Give each agent only the tools and data it needs, and scope credentials narrowly and briefly. The less a manipulated agent can do, the less an attacker gains by manipulating it.
+
+4. **Authenticate and authorize agent identities:** Do not rely on an agent claiming who it is. Verify identity between agents, and check authorization for each sensitive action, not just at the start of a session.
+
+5. **Put humans in the loop for high-impact actions:** Payments, data export, permission changes, and external communications should require explicit approval, so a single injected instruction cannot complete a damaging chain on its own.
+
+6. **Test adversarially, and keep testing:** Agent behavior shifts with every prompt edit, new tool, model upgrade, or newly connected agent. Attack your own agent chains the way an adversary would, and repeat it as the system evolves.
+
+## How SafeOps helps
+
+Agent security is a testing problem before it is anything else. You find out whether your agents can be turned against you by trying to turn them, safely, before someone else does.
+
+SafeOps is built as a continuous hacking platform that attacks the surfaces modern organizations actually run, including web apps, APIs, chatbots, and AI agents.
+
+- **Continuous attack simulation against agents:** Agents, their tools, and their connections are tested the way a hostile agent or malicious content would test them, not just with one-off prompts.
+- **Full attack-chain thinking:** Testing follows the path from a poisoned input to a privileged action, showing what a manipulated agent can actually reach.
+- **Human-validated results:** Certified security experts confirm findings, so your team acts on exploitable risk instead of chasing noise.
+- **Continuous retesting:** When prompts, tools, or models change, or a fix ships, the same attacks run again to prove the exposure is closed.
+
+The result is evidence rather than assumption: you know which agent paths can be abused, and you can prove they are fixed.
+
+## The bottom line
+
+Agents are becoming the newest workforce in your organization, and they take instructions from whatever they read and whoever they trust. That makes them a new class of target, and one attacker-controlled agent or document may be enough to reach everything your agents can touch.
+
+The organizations that adopt agents safely will not be the ones that assume trust between them. They will be the ones that test those trust relationships adversarially, and keep testing as the system changes.
+
+You make it. We break it. So an attacker never gets the chance.
+
+**Want to know whether your agents could be turned against you? See how SafeOps tests AI agents continuously.**
+`,
+  },
   {
     slug: "44-days-to-exploit-74-days-to-fix-gap-attackers-live-in",
     title: "44 Days to Exploit, 74 Days to Fix: The Gap Attackers Live In",
