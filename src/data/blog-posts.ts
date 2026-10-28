@@ -28,6 +28,7 @@ import securityFeedbackLoop from "@/assets/blog/security-feedback-loop-proving-v
 import ephemeralityAsDefense from "@/assets/blog/ephemerality-as-defense-securing-short-lived-infrastructure-gitops.jpg";
 import daysToExploitGap from "@/assets/blog/44-days-to-exploit-74-days-to-fix-gap-attackers-live-in.jpg";
 import agentsHackedByAgents from "@/assets/blog/your-agents-can-be-hacked-by-other-agents.jpg";
+import raceConditionsApis from "@/assets/blog/race-conditions-in-apis-timing-bypass-business-rules.jpg";
 
 export interface BlogPost {
   slug: string;
@@ -42,6 +43,109 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "race-conditions-in-apis-timing-bypass-business-rules",
+    title: "Race Conditions in APIs: How Attackers Exploit Timing to Bypass Business Rules",
+    excerpt: "Twenty simultaneous requests can redeem a one-time voucher twenty times. How API race conditions beat business rules, and six steps to stop them.",
+    date: "2026-10-28",
+    author: "SafeOps Team",
+    readTime: "5 min read",
+    tags: ["API Security", "Business Logic", "Race Conditions", "Continuous Testing"],
+    coverImage: raceConditionsApis,
+    content: `
+Your API says a customer can redeem a voucher once. An attacker sends the same request twenty times in the same instant, and the voucher is redeemed twenty times.
+
+No exploit code. No stolen credentials. No broken encryption. Every individual request was valid, authenticated, and well-formed. The business rule was correct. The attacker simply beat it on timing.
+
+This is a race condition, and it is one of the most underestimated ways to defeat the rules your business depends on.
+
+## What a race condition actually is
+
+Most business rules are written as a sequence of steps: check something, then act on it.
+
+- Check the balance, then approve the withdrawal.
+- Check whether the coupon is unused, then apply the discount.
+- Check how many attempts remain, then process the login or one-time code.
+- Check that stock is available, then confirm the order.
+
+In a single, slow, polite request, that sequence works. The problem appears when many requests arrive at the same moment. If several of them pass the "check" before any of them completes the "act," they all pass. The rule was true when each request looked, and false by the time each one finished.
+
+Security engineers call this a time-of-check to time-of-use gap. Attackers call it an opportunity.
+
+## Why this is a leadership problem, not just an engineering bug
+
+Race conditions rarely look like classic vulnerabilities. They do not leak a password or crash a server. They quietly turn a business rule into a suggestion, and the consequences land in places executives care about directly:
+
+- **Financial loss:** Gift cards, credits, refunds, and withdrawals spent more than once, or beyond the available balance.
+- **Promotion and loyalty abuse:** One-time discounts, referral bonuses, and reward points redeemed repeatedly.
+- **Inventory and fulfillment errors:** Limited stock, tickets, or reservations sold beyond capacity.
+- **Weakened authentication:** Attempt limits on logins, one-time codes, and password resets bypassed by sending guesses in parallel.
+- **Integrity of limits:** Rate limits, quotas, and usage caps that hold under normal traffic and fail under simultaneous traffic.
+- **Compliance and audit exposure:** Records that no longer match what the business rules say should have happened.
+
+Because each request is legitimate, these incidents are often discovered late, through reconciliation or a customer complaint, rather than through an alert.
+
+## Why scanners and one-time tests miss it
+
+Race conditions hide from most of the controls organizations rely on.
+
+- **They are not input problems:** There is no malicious payload for a filter or a web application firewall to catch. The requests are normal.
+- **They depend on concurrency:** A test that sends one request at a time will never trigger the flaw. It only appears when requests collide.
+- **They live in business logic:** Automated scanners look for known technical patterns. They do not know that a voucher should be single-use or that a balance must never go negative.
+- **They are fragile and environment specific:** Whether a race can be won depends on infrastructure, caching, database settings, and load. A flaw can be real in production and invisible in staging.
+- **They reappear:** A new feature, a refactor, or a change in how a service scales can reintroduce a gap that was previously closed.
+
+Finding them takes someone, or something, that understands the intended rule and deliberately attacks the timing around it.
+
+## Where to look first
+
+If you are deciding where to point attention, prioritize any API that moves value or enforces a limit:
+
+- Payments, balances, credits, and refunds.
+- Coupons, vouchers, gift cards, and loyalty points.
+- Inventory, bookings, and any limited resource.
+- Authentication flows, including login attempts, one-time codes, and password resets.
+- Account and permission changes, such as invitations, role assignments, and unique usernames or emails.
+- Rate limits, quotas, and trial or usage caps.
+
+## Six practical steps to reduce the risk
+
+1. **Make the check and the act a single atomic operation:** The core fix is to remove the gap. Perform the validation and the state change together, so no other request can slip in between them.
+
+2. **Use database-level protections, not only application logic:** Row locks, transactions with appropriate isolation, unique constraints, and conditional updates (for example, "decrement only if the balance is sufficient") enforce the rule where concurrent requests cannot bypass it.
+
+3. **Require idempotency for sensitive actions:** Attach a unique key to operations that move value, so a repeated or simultaneous duplicate is recognized and processed once.
+
+4. **Count attempts atomically:** Authentication limits, rate limits, and quotas should increment and enforce in one step. A counter that is read, compared, and written separately can be raced.
+
+5. **Treat concurrency as part of the threat model:** For every rule that says "only once," "at most N," or "never below zero," ask what happens if many requests arrive together, and write a test for it.
+
+6. **Test it adversarially, and repeat it:** Concurrency flaws are found by attacking them, with parallel requests aimed at the rule you care about. Rerun those tests as features, infrastructure, and scale change.
+
+## How SafeOps helps
+
+Race conditions are a testing problem as much as a coding problem. You find out whether a rule can be beaten by trying to beat it, safely, before someone else does.
+
+SafeOps is built as a continuous hacking platform that attacks the web apps and APIs organizations actually run.
+
+- **Business logic attack simulation:** Testing targets the rules that matter, such as single-use, limits, and balances, instead of only scanning for known technical patterns.
+- **Concurrency-aware testing:** Sensitive endpoints are attacked with simultaneous requests the way a real adversary would, exposing gaps that sequential testing cannot see.
+- **Human-validated results:** Certified security experts confirm each finding and its real business impact, so your team works on exploitable risk instead of noise.
+- **Continuous retesting:** When a fix ships, or a release changes how an endpoint behaves, the same attacks run again to prove the gap is closed and stays closed.
+
+The result is evidence that your business rules hold under pressure, not an assumption that they do.
+
+## The bottom line
+
+A business rule is only as strong as the weakest moment in which it is checked. Attackers who understand timing do not need to break your defenses. They only need to make many valid requests land at once.
+
+The organizations that stay ahead will not just review their code for correctness. They will test their rules under concurrent attack, and keep testing as the system changes.
+
+Your rules can be right and still be beaten. The only way to know is to attack them first.
+
+**Want to know whether your API's business rules hold up under simultaneous attack?**
+`,
+  },
   {
     slug: "your-agents-can-be-hacked-by-other-agents",
     title: "Your Agents Can Be Hacked by Other Agents",
